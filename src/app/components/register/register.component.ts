@@ -78,6 +78,8 @@ export class RegisterComponent implements OnInit {
     } catch (err) {
       if (err.error.message === 'Email is already in use') {
         this.snackbarService.showError('Email is already in use. Please login');
+      } else if (err.error.error === 'auth/weak-password') {
+        this.snackbarService.showError('Password is too weak. Please try again');
       } else {
         console.log(err);
       }
