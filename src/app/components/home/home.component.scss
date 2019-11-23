@@ -1,0 +1,43 @@
+@import '../../../vars.scss';
+
+.main {
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../../../assets/pictures/startup-594091_1920.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0px;
+  border: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: rgba(20,20,20, .7); // Tint color
+  background-blend-mode: multiply;
+  caret-color: white;
+}
+
+h1, h2 {
+  color: white;
+  font-family: $questerial;
+}
+
+.title-text {
+  font-size: 64px;
+  text-align: center;
+}
+
+.subtitle-text {
+  font-size: 48px;
+  text-align: center;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 75px;
+}
+
+.button {
+  color: white;
+  font-family: $questerial;
+  font-size: 32px;
+}
