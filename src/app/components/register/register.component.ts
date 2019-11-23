@@ -42,6 +42,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
+      username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
     }, {
@@ -74,10 +75,14 @@ export class RegisterComponent implements OnInit {
   async onSubmit() {
     try {
       this.loading = true;
-      await this.codeService.register(this.loginForm.getRawValue().email, this.loginForm.getRawValue().password);
+      await this.codeService.register(this.loginForm.getRawValue().email,
+                                      this.loginForm.getRawValue().username,
+                                      this.loginForm.getRawValue().password);
     } catch (err) {
       if (err.error.message === 'Email is already in use') {
         this.snackbarService.showError('Email is already in use. Please login');
+      } else if (err.error.message === 'This username is already taken') {
+        this.snackbarService.showError(`This username is already taken`);
       } else if (err.error.error === 'auth/weak-password') {
         this.snackbarService.showError('Password is too weak. Please try again');
       } else {

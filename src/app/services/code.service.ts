@@ -16,8 +16,8 @@ export class CodeService {
     return this.http.post(`${ this.url }/testToken`, { test: 'test' }).toPromise();
   }
 
-  register(email: string, password: string): Promise<any> {
-    return this.http.post(`${ this.url }/signup`, { email, password }).toPromise();
+  register(email: string, username: string, password: string): Promise<any> {
+    return this.http.post(`${ this.url }/signup`, { email, username, password }).toPromise();
   }
 
 
