@@ -4,6 +4,7 @@ import { ErrorStateMatcher } from '@angular/material';
 import { Router } from '@angular/router';
 import { CodeService } from '../../services/code.service';
 import { SnackbarService } from '../../services/snackbar.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 export class PasswordErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -37,7 +38,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private router: Router,
               private codeService: CodeService,
-              private snackbarService: SnackbarService) { }
+              private snackbarService: SnackbarService,
+              public afAuth: AngularFireAuth) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -72,6 +74,11 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  async sendEmail(username, password) {
+    await this.afAuth.auth.signInWithEmailAndPassword(username, password);
+    setTimeout(() => { this.afAuth.auth.currentUser.sendEmailVerification(); }, 1000);
+  }
+
   async onSubmit() {
     try {
       this.loading = true;
@@ -79,6 +86,7 @@ export class RegisterComponent implements OnInit {
                                       this.loginForm.getRawValue().username,
                                       this.loginForm.getRawValue().password);
       this.registered = true;
+      this.sendEmail(this.loginForm.getRawValue().email, this.loginForm.getRawValue().password);
     } catch (err) {
       if (err.error.message === 'Email is already in use') {
         this.snackbarService.showError('Email is already in use. Please login');
