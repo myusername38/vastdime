@@ -21,6 +21,11 @@
   margin-top: 15vh;
 }
 
+.confirm-box {
+  max-width: 600px;
+  margin-top: 30vh;
+}
+
 .white{
   color: white;
 }
@@ -59,4 +64,20 @@ input {
 
 .mb-xxs {
   margin-bottom: 2px;
+}
+
+.title-text {
+  font-size: 64px;
+  text-align: center;
+}
+
+.subtitle-text {
+  font-size: 48px;
+  text-align: center;
+}
+
+h1, h2 {
+  color: white;
+  font-family: $questerial;
+  text-align: center;
 }

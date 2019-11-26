@@ -20,7 +20,6 @@ export class EmailErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -35,6 +34,7 @@ export class RegisterComponent implements OnInit {
   passMatch = true;
   matcher = new PasswordErrorStateMatcher();
   matcher2 = new EmailErrorStateMatcher();
+  registered = true;
 
   constructor(private router: Router,
               private codeService: CodeService,
@@ -85,6 +85,7 @@ export class RegisterComponent implements OnInit {
       await this.codeService.register(this.loginForm.getRawValue().email,
                                       this.loginForm.getRawValue().username,
                                       this.loginForm.getRawValue().password);
+      this.registered = true;
       this.sendEmail(this.loginForm.getRawValue().email, this.loginForm.getRawValue().password);
     } catch (err) {
       if (err.error.message === 'Email is already in use') {

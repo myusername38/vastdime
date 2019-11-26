@@ -15,7 +15,11 @@ import {
   MatButtonModule,
   MatInputModule,
   MatProgressSpinnerModule,
+  MatToolbarModule,
   MatSidenavModule,
+  MatMenuModule,
+  MatOptionModule,
+  MatAutocompleteModule,
  } from '@angular/material';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -23,6 +27,8 @@ import { HomeComponent } from './components/home/home.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { AceEditorModule } from 'ng2-ace-editor';
+import { AboutComponent } from './components/about/about.component';
+import { LoadPageComponent } from './components/load-page/load-page.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +36,8 @@ import { AceEditorModule } from 'ng2-ace-editor';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    AboutComponent,
+    LoadPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +55,10 @@ import { AceEditorModule } from 'ng2-ace-editor';
     MatProgressSpinnerModule,
     MatSidenavModule,
     AceEditorModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatAutocompleteModule,
+    MatOptionModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
