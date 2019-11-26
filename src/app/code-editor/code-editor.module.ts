@@ -4,6 +4,13 @@ import { AceEditorModule } from 'ng2-ace-editor';
 import { EditorComponent } from '../components/editor/editor.component';
 import { CodeEditorRoutingModule } from './code-editor-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {
+  MatSnackBarModule,
+  MatButtonModule,
+  MatInputModule,
+  MatProgressSpinnerModule,
+  MatToolbarModule,
+ } from '@angular/material';
 
 
 @NgModule({
@@ -15,6 +22,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     CodeEditorRoutingModule,
     AceEditorModule,
     MatSidenavModule,
-  ]
+    MatSnackBarModule,
+    MatButtonModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+  ],
 })
 export class CodeEditorModule { }
