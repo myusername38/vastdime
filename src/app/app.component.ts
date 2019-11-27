@@ -22,7 +22,7 @@ export class AppComponent {
 
   header() {
     this.name = this.router.url.toString();
-    if (this.name === '/home' || this.name === '/login' || this.name === '/register') {
+    if (this.name === '/home' || this.name === '/login' || this.name === '/register' || this.name === '/about') {
       return false;
     }
     return true;
