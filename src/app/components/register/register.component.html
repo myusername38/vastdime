@@ -1,5 +1,5 @@
 <div class="main p-sm" fxLayoutAlign="center start">
-  <div class="login-box w-100" fxLayout="column" fxLayoutAlign="center center" *ngIf="!registered">
+  <div class="login-box w-100" fxLayout="column" fxLayoutAlign="center center" *ngIf="registered">
     <h1 class="mt-sm bm-sm mlr-auto">Register Account</h1>
     <form class="login-form w-100" fxLayout="column" fxLayoutAlign="center center" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="w-100 mb-xs" appearance="fill">
@@ -31,8 +31,7 @@
     </form>
     <button mat-button (click)="login()" class="mlr-auto mt-sm white subtitle">Have an account? Click Here</button>
   </div>
-
-  <div class="confirm-box w-100" fxLayout="column" fxLayoutAlign="center center" *ngIf="registered">
+  <div class="confirm-box w-100" fxLayout="column" fxLayoutAlign="center center" *ngIf="!registered">
     <h1 class="mt-sm bm-sm mlr-auto">Thank You for Registering!</h1>
     <h2 class="mt-sm bm-sm mlr-auto">Please check your email to complete registration.</h2>
     <h2 class="mt-sm bm-sm mlr-auto">Make sure to check your Junk or Spam mailbox if you do not see a message from VastDime.</h2>

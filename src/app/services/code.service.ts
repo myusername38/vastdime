@@ -20,6 +20,40 @@ export class CodeService {
     return this.http.post(`${ this.url }/signup`, { email, username, password }).toPromise();
   }
 
+  putprogram(name: string, description: string, filetype: string, code: string): Promise<any> {
+    return this.http.post(`${ this.url }/addcode`, { name, description, filetype, code }).toPromise();
+  }
+
+  getprogram(username: string, name: string): Promise<any> {
+    return this.http.post(`${ this.url }/get`, { username, name }).toPromise();
+  }
+
+  deleteprogram(title: string, language: string): Promise<any> {
+    return this.http.post(`${ this.url }/deletecode`, { title, language }).toPromise();
+  }
+
+  makeprivate(title: string): Promise<any> {
+    return this.http.post(`${ this.url }/privatecode`, { title }).toPromise();
+  }
+
+  unlist(title: string): Promise<any> {
+    return this.http.post(`${ this.url }/unlistcode`, { title }).toPromise();
+  }
+
+  unprivate(title: string): Promise<any> {
+    return this.http.post(`${ this.url }/unprivatecode`, { title }).toPromise();
+  }
+
+  list(title: string): Promise<any> {
+    return this.http.post(`${ this.url }/listcode`, { title }).toPromise();
+  }
+
+  getpubliccode(title: string, language: string): Promise<any> {
+    return this.http.post(`${ this.url }/getpubliccode`, { title, language }).toPromise();
+  }
+
+
+
 
   //TODO: save, getdocument stuff like that
   // all of your http calls are going to be in here

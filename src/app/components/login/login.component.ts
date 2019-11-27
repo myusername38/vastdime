@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
       await this.afAuth.auth.signInWithEmailAndPassword(this.loginForm.getRawValue().email, this.loginForm.getRawValue().password);
       if (!this.afAuth.auth.currentUser.emailVerified) {
         this.afAuth.auth.signOut();
+        this.snackbarService.showError('Accounnt not verified. Please check your email.');
       }
       this.router.navigate(['']);
     } catch (err) {
