@@ -11,22 +11,22 @@ import { RouterOutlet, Router } from '@angular/router';
   ]
 })
 export class AppComponent {
-  name;
+  header = false;
 
   constructor(public router: Router) {
+    this.router.events.subscribe((event) => {
+      this.header = this.setHeader();
+    });
   }
   title = 'VastDime';
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
-
-  header() {
-    this.name = this.router.url.toString();
-    if (this.name === '/home' || this.name === '/login' || this.name === '/register' || this.name === '/about') {
+  setHeader() {
+    const name = this.router.url.toString();
+    if (name === '/home' || name === '/login' || name === '/register' || name === '/about' || name === '/reset') {
       return false;
     }
     return true;
   }
-
-
 }

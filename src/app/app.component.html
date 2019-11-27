@@ -1,8 +1,6 @@
-
-  <mat-toolbar *ngIf="header()">
-      <h1>VastDime</h1>
-  </mat-toolbar>
-
+<mat-toolbar *ngIf="header">
+    <h1>VastDime</h1>
+</mat-toolbar>
 <div [@routeAnimations]="prepareRoute(outlet)" >
   <router-outlet #outlet="outlet"></router-outlet>
 </div>

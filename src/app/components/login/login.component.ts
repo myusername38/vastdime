@@ -37,6 +37,10 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['register']);
   }
 
+  resetPassword() {
+    this.router.navigate(['reset']);
+  }
+
   async onSubmit() {
     try {
       this.loading = true;
