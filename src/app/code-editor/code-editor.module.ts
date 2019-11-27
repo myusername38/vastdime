@@ -4,6 +4,7 @@ import { AceEditorModule } from 'ng2-ace-editor';
 import { EditorComponent } from '../components/editor/editor.component';
 import { CodeEditorRoutingModule } from './code-editor-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatSnackBarModule,
   MatButtonModule,
@@ -30,6 +31,7 @@ import { UserHomeComponent } from '../components/user-home/user-home.component';
     CommonModule,
     CodeEditorRoutingModule,
     AceEditorModule,
+    FlexLayoutModule,
     MatSidenavModule,
     MatSnackBarModule,
     MatButtonModule,
