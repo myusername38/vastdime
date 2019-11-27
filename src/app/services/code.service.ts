@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { CodeMetaData } from '../interfaces/codeMetaData'
+import { CodeMetaData } from '../interfaces/codeMetaData';
+import { UserCodeData } from '../interfaces/userCodeData';
 
 @Injectable({
   providedIn: 'root'
@@ -32,29 +33,35 @@ export class CodeService {
     return this.http.get(`${ this.url }/getcode`, { params }).toPromise();
   }
 
-  deleteprogram(title: string, language: string): Promise<any> {
-    return this.http.post(`${ this.url }/deletecode`, { title, language }).toPromise();
+  deleteProgram(title: string, language: string): Promise<any> {
+    let params = new HttpParams().set('title', title.replace(/ /g, '_'));
+    params = params.append('language', language);
+    return this.http.delete(`${ this.url }/deletecode`, { params }).toPromise();
   }
 
-  makeprivate(title: string): Promise<any> {
-    return this.http.post(`${ this.url }/privatecode`, { title }).toPromise();
+  privateCode(title: string): Promise<any> {
+    return this.http.put(`${ this.url }/privatecode`, { title }).toPromise();
   }
 
-  unlist(title: string): Promise<any> {
-    return this.http.post(`${ this.url }/unlistcode`, { title }).toPromise();
+  unListCode(title: string): Promise<any> {
+    return this.http.put(`${ this.url }/unlistcode`, { title }).toPromise();
   }
 
-  unprivate(title: string): Promise<any> {
-    return this.http.post(`${ this.url }/unprivatecode`, { title }).toPromise();
+  unPrivateCode(title: string): Promise<any> {
+    return this.http.put(`${ this.url }/unprivatecode`, { title }).toPromise();
   }
 
-  list(title: string): Promise<any> {
-    return this.http.post(`${ this.url }/listcode`, { title }).toPromise();
+  listCode(title: string): Promise<any> {
+    return this.http.put(`${ this.url }/listcode`, { title }).toPromise();
   }
 
   getPublicCode(language: string): Promise<CodeMetaData[]> {
     const params = new HttpParams().set('language', language);
     return this.http.get<CodeMetaData[]>(`${ this.url }/getpubliccode`, { params }).toPromise();
+  }
+
+  getUserCode(): Promise<UserCodeData[]> {
+    return this.http.get<UserCodeData[]>(`${ this.url }/getusercode`).toPromise();
   }
 
   setProgram(username, title) {
