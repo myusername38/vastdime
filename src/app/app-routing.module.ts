@@ -16,7 +16,6 @@ const routes: Routes = [
   { path: 'reset', component: ResetPasswordComponent, data: { animation: 'isRight' } },
   { path: 'register', component: RegisterComponent, data: { animation: 'isLeft' } },
   { path: 'about', component: AboutComponent, data: { animation: 'isRight' } },
-  { path: 'load', component: LoadPageComponent, data: { animation: 'isRight' } },
   { path: '', loadChildren: () => import ('./code-editor/code-editor.module').then(mod => mod.CodeEditorModule),
   ...canActivate(redirectUnauthorizedToLanding) },
 ];

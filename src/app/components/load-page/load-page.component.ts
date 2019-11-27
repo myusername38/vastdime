@@ -18,7 +18,7 @@ export class LoadPageComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   publicCode: CodeMetaData[] = [];
   language = 'javascript';
-
+  displayedColumns: string[] = ['title', 'description', 'username', 'date', 'view'];
   constructor(
     private router: Router,
     private codeService: CodeService,
@@ -37,17 +37,24 @@ export class LoadPageComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  loadPublicCode() {
-    this.codeService.getPublicCode(this.language).then((res) => {
-      this.publicCode = res;
-      console.log(res);
-    });
+  async loadPublicCode() {
+    try {
+      this.publicCode = await this.codeService.getPublicCode('javascript');
+      console.log(this.publicCode);
+    } catch (err) {
+      console.log(err);
+    } finally {
+
+    }
+  }
+
+  loadProgram(username: string, title: string) {
+    this.codeService.setProgram(username, title);
+    this.router.navigate(['editor'], { queryParams: { username, title } });
   }
 
   load() {
     this.router.navigate(['']);
   }
-
-
 }
 

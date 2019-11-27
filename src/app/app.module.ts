@@ -28,7 +28,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { AboutComponent } from './components/about/about.component';
-import { LoadPageComponent } from './components/load-page/load-page.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
@@ -38,7 +37,6 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     RegisterComponent,
     HomeComponent,
     AboutComponent,
-    LoadPageComponent,
     ResetPasswordComponent,
   ],
   imports: [

@@ -10,12 +10,21 @@ import {
   MatInputModule,
   MatProgressSpinnerModule,
   MatToolbarModule,
+  MatMenuModule,
+  MatOptionModule,
+  MatAutocompleteModule,
+  MatTableModule,
+  MatIconModule,
  } from '@angular/material';
+import { LoadPageComponent } from '../components/load-page/load-page.component';
+import { UserHomeComponent } from '../components/user-home/user-home.component';
 
 
 @NgModule({
   declarations: [
-    EditorComponent
+    EditorComponent,
+    LoadPageComponent,
+    UserHomeComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +36,11 @@ import {
     MatInputModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
+    MatMenuModule,
+    MatOptionModule,
+    MatAutocompleteModule,
+    MatTableModule,
+    MatIconModule,
   ],
 })
 export class CodeEditorModule { }

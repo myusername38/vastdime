@@ -10,6 +10,7 @@ export class CodeService {
 
   // url = 'http://localhost:5000/vastdime-4c82c/us-central1/api';
   url = environment.url;
+  program: { username: string, title: string } = null;
 
   constructor(private http: HttpClient) { }
 
@@ -25,8 +26,10 @@ export class CodeService {
     return this.http.post(`${ this.url }/addcode`, { name, description, filetype, code }).toPromise();
   }
 
-  getprogram(username: string, name: string): Promise<any> {
-    return this.http.post(`${ this.url }/get`, { username, name }).toPromise();
+  getprogram(username: string, program: string): Promise<any> {
+    let params = new HttpParams().set('username', username);
+    params = params.append('program', program);
+    return this.http.get(`${ this.url }/getcode`, { params }).toPromise();
   }
 
   deleteprogram(title: string, language: string): Promise<any> {
@@ -54,10 +57,10 @@ export class CodeService {
     return this.http.get<CodeMetaData[]>(`${ this.url }/getpubliccode`, { params }).toPromise();
   }
 
-
-
-
-  //TODO: save, getdocument stuff like that
-  // all of your http calls are going to be in here
-
+  setProgram(username, title) {
+    this.program = { username, title };
+  }
+  getProgramToLoad() {
+    return this.program;
+  }
 }
