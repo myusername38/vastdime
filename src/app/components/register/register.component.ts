@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
   passMatch = true;
   matcher = new PasswordErrorStateMatcher();
   matcher2 = new EmailErrorStateMatcher();
-  registered = true;
+  registered = false;
 
   constructor(private router: Router,
               private codeService: CodeService,

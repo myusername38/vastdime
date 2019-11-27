@@ -1,24 +1,18 @@
 <div class="main p-sm" fxLayout="column" fxLayoutAlign="start center">
-    <div class="title mt-lg">
-        <h2 class="subtitle-text mlr-auto">VastDime</h2>
-    </div>
-
-    <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <input type="text" placeholder="Choose from the 3 currently supported programming languages." aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
-
-
-
-
-
-    <div class="bottom mlr-auto" fxLayout="column" fxLayoutAlign="start center">
-      <button (click)="load()" class="button p-xs mb-xs" mat-button>Load</button>
-    </div>
+  <div class="title mt-lg">
+    <h2 class="subtitle-text mlr-auto">VastDime</h2>
   </div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Choose from the 3 currently supported programming languages." aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <div class="bottom mlr-auto" fxLayout="column" fxLayoutAlign="start center">
+    <button (click)="load()" class="button p-xs mb-xs" mat-button>Load</button>
+  </div>
+</div>

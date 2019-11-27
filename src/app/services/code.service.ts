@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { CodeMetaData } from '../interfaces/codeMetaData'
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +49,9 @@ export class CodeService {
     return this.http.post(`${ this.url }/listcode`, { title }).toPromise();
   }
 
-  getpubliccode(title: string, language: string): Promise<any> {
-    return this.http.post(`${ this.url }/getpubliccode`, { title, language }).toPromise();
+  getPublicCode(language: string): Promise<CodeMetaData[]> {
+    const params = new HttpParams().set('language', language);
+    return this.http.get<CodeMetaData[]>(`${ this.url }/getpubliccode`, { params }).toPromise();
   }
 
 
