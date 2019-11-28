@@ -12,10 +12,12 @@ import { RouterOutlet, Router } from '@angular/router';
 })
 export class AppComponent {
   header = false;
+  editor = false;
 
   constructor(public router: Router) {
     this.router.events.subscribe((event) => {
       this.header = this.setHeader();
+      this.editor = this.isEditor();
     });
   }
   title = 'VastDime';
@@ -28,5 +30,12 @@ export class AppComponent {
       return false;
     }
     return true;
+  }
+  isEditor() {
+    const name = this.router.url.toString();
+    if (name === '/') {
+      return true;
+    }
+    return false;
   }
 }

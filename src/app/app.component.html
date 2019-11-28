@@ -1,5 +1,16 @@
 <mat-toolbar *ngIf="header">
     <h1>VastDime</h1>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>About</mat-icon>
+          </button>
+        <button mat-menu-item>
+          <mat-icon>Load</mat-icon>
+        </button>
+        <button mat-menu-item *ngIf="editor">
+          <mat-icon>Save</mat-icon>
+        </button>
+    </mat-menu>
 </mat-toolbar>
 <div [@routeAnimations]="prepareRoute(outlet)" >
   <router-outlet #outlet="outlet"></router-outlet>
