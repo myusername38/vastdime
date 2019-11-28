@@ -20,6 +20,7 @@ import {
   MatMenuModule,
   MatOptionModule,
   MatAutocompleteModule,
+  MatIconModule
  } from '@angular/material';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -56,6 +57,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     MatSidenavModule,
     AceEditorModule,
     MatToolbarModule,
+    MatIconModule,
     MatMenuModule,
     MatAutocompleteModule,
     MatOptionModule,
