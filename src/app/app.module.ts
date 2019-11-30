@@ -20,7 +20,8 @@ import {
   MatMenuModule,
   MatOptionModule,
   MatAutocompleteModule,
-  MatIconModule
+  MatIconModule,
+  MatTableModule,
  } from '@angular/material';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -61,6 +62,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     MatMenuModule,
     MatAutocompleteModule,
     MatOptionModule,
+    MatTableModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },

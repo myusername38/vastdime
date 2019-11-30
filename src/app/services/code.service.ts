@@ -23,8 +23,12 @@ export class CodeService {
     return this.http.post(`${ this.url }/signup`, { email, username, password }).toPromise();
   }
 
-  putprogram(name: string, description: string, filetype: string, code: string): Promise<any> {
-    return this.http.post(`${ this.url }/addcode`, { name, description, filetype, code }).toPromise();
+  putProgram(programData: { title: string, description: string, language: string, program: string, unlisted: boolean, private: boolean }): Promise<any> {
+    return this.http.post(`${ this.url }/addcode`, programData).toPromise();
+  }
+
+  putProgramNoVisibility(programData: { title: string, description: string, language: string, program: string }): Promise<any> {
+    return this.http.post(`${ this.url }/addcode`, programData).toPromise();
   }
 
   getprogram(username: string, program: string): Promise<any> {

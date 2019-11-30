@@ -1,36 +1,38 @@
 <div class="main p-sm" fxLayout="column" fxLayoutAlign="start center">
-    <div class="title mt-sm">
-        <h2 class="subtitle-text mlr-auto">Load Existing Program</h2>
-    </div>
-  <table mat-table [dataSource]="publicCode" class="mat-elevation-z8" style="max-width: 50%;">->
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef>Program</th>
-      <td mat-cell *matCellDef="let element">{{ element.title }}</td>
-    </ng-container>
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef>Description</th>
-      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
-    </ng-container>
-    <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef>Author</th>
-      <td mat-cell *matCellDef="let element">{{ element.username }}</td>
-    </ng-container>
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef>Edited</th>
-      <td mat-cell *matCellDef="let element">{{ element.lastEdited | date: 'shortDate' }}</td>
-    </ng-container>
-    <ng-container matColumnDef="view">
-      <th mat-header-cell *matHeaderCellDef>View</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="View Program">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button (click)="loadProgram(element.username, element.title)" mat-menu-item>Load Code</button>
-        </mat-menu>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <div class="mt-sm">
+    <h2 class="subtitle-text mlr-auto">Load Existing Program</h2>
+  </div>
+  <div class="table-container w-100">
+    <mat-table fxFlexAlign="column" [dataSource]="publicCode">
+      <ng-container cdkColumnDef="title">
+        <mat-header-cell fxFlex="30" *cdkHeaderCellDef>Program</mat-header-cell>
+        <mat-cell fxFlex="30" *cdkCellDef="let row">{{ row?.title }}</mat-cell>
+      </ng-container>
+      <ng-container class="description" cdkColumnDef="description">
+        <mat-header-cell fxFlex="30" *cdkHeaderCellDef>Description</mat-header-cell>
+        <mat-cell class="ellipsis" fxFlex="30" *cdkCellDef="let row">{{ row?.description }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="username">
+        <mat-header-cell fxFlex="20" *cdkHeaderCellDef>Author</mat-header-cell>
+        <mat-cell class="ellipsis" fxFlex="20" *cdkCellDef="let row">{{ row?.username }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="date">
+        <mat-header-cell fxFlex="12" *cdkHeaderCellDef>Edited</mat-header-cell>
+        <mat-cell class="ellipsis" fxFlex="12" *cdkCellDef="let row">{{ row?.lastEdited | date: 'shortDate' }}</mat-cell>
+      </ng-container>
+      <ng-container class="end" cdkColumnDef="view" stickyEnd>
+        <mat-header-cell fxFlex="8" class="pr-0" *cdkHeaderCellDef></mat-header-cell>
+        <mat-cell fxFlex="8" class="pr-0" fxLayoutAlign="center center" *cdkCellDef="let row">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="View Program">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button (click)="loadProgram(row?.username, row?.title)" mat-menu-item>Load Code</button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *cdkRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
 </div>

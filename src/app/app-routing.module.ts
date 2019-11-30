@@ -11,13 +11,12 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 const redirectUnauthorizedToLanding = redirectUnauthorizedTo(['home']);
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent, data: { animation: 'isRight' } },
   { path: 'reset', component: ResetPasswordComponent, data: { animation: 'isRight' } },
   { path: 'register', component: RegisterComponent, data: { animation: 'isLeft' } },
   { path: 'about', component: AboutComponent, data: { animation: 'isRight' } },
-  { path: '', loadChildren: () => import ('./code-editor/code-editor.module').then(mod => mod.CodeEditorModule),
-  ...canActivate(redirectUnauthorizedToLanding) },
+  { path: 'editor', loadChildren: () => import ('./code-editor/code-editor.module').then(mod => mod.CodeEditorModule) },
 ];
 
 @NgModule({

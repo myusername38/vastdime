@@ -1,16 +1,11 @@
 <mat-toolbar *ngIf="header">
-    <h1>VastDime</h1>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            <mat-icon>About</mat-icon>
-          </button>
-        <button mat-menu-item>
-          <mat-icon>Load</mat-icon>
-        </button>
-        <button mat-menu-item *ngIf="editor">
-          <mat-icon>Save</mat-icon>
-        </button>
-    </mat-menu>
+  <h1>VastDime</h1>
+  <button class="menu-icon" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon class="icon">menu</mat-icon></button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button (click)="nav('editor')" mat-menu-item>Editor</button>
+    <button (click)="nav('editor/user-home')" mat-menu-item>Your Pograms</button>
+    <button (click)="nav('editor/programs')" mat-menu-item>Public Programs</button>
+  </mat-menu>
 </mat-toolbar>
 <div [@routeAnimations]="prepareRoute(outlet)" >
   <router-outlet #outlet="outlet"></router-outlet>

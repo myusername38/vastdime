@@ -38,4 +38,8 @@ export class AppComponent {
     }
     return false;
   }
+
+  nav(url) {
+    this.router.navigate([url]);
+  }
 }
