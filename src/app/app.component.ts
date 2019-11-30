@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { slider, transformer, fader, stepper } from './route-animations';
+import { SnackbarService } from './services/snackbar.service';
 import { RouterOutlet, Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -13,11 +15,20 @@ import { RouterOutlet, Router } from '@angular/router';
 export class AppComponent {
   header = false;
   editor = false;
+  loggedIn = false;
 
-  constructor(public router: Router) {
+  constructor(
+    public router: Router,
+    private afAuth: AngularFireAuth,
+    private snackbarService: SnackbarService) {
     this.router.events.subscribe((event) => {
       this.header = this.setHeader();
       this.editor = this.isEditor();
+    });
+    this.afAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.loggedIn = true;
+      }
     });
   }
   title = 'VastDime';
@@ -26,11 +37,22 @@ export class AppComponent {
   }
   setHeader() {
     const name = this.router.url.toString();
-    if (name === '/home' || name === '/login' || name === '/register' || name === '/about' || name === '/reset') {
-      return false;
+    if (name.includes('editor')) {
+      return true;
     }
-    return true;
+    return false;
   }
+
+  logout() {
+    this.afAuth.auth.signOut();
+    this.snackbarService.showInfo('Logged out');
+    this.router.navigate(['']);
+  }
+
+  login() {
+    this.router.navigate(['login']);
+  }
+
   isEditor() {
     const name = this.router.url.toString();
     if (name === '/') {

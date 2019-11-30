@@ -35,6 +35,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
   program: UserCodeData = null;
   aceEditor = null;
   selectedLanguage = 'javascript';
+  visibility = '';
   owner = false;
   loggedIn = false;
   languages = [
@@ -54,15 +55,17 @@ export class EditorComponent implements OnInit, AfterViewInit {
       this.username = params['username'];
       this.title = params['title'];
     });
+    this.afAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.loggedIn = true;
+        if (this.afAuth.auth.currentUser && this.afAuth.auth.currentUser.displayName === this.username) {
+          this.owner = true;
+        }
+      }
+    });
   }
 
   ngOnInit() {
-    if (this.afAuth.auth.currentUser && this.afAuth.auth.currentUser.displayName === this.username) {
-      this.owner = true;
-    }
-    if (this.afAuth.auth.currentUser) {
-      this.loggedIn = true;
-    }
   }
 
   async ngAfterViewInit() {
@@ -83,7 +86,8 @@ export class EditorComponent implements OnInit, AfterViewInit {
       this.loading = true;
       const response = await this.codeService.getprogram(this.username, this.title);
       this.program = response.program;
-      this.aceEditor.setValue(this.program.program);
+      this.aceEditor.setValue(this.reinstateQuote(this.program.program));
+      this.selectedLanguage = this.program.language;
       if (this.program.language !== 'javascript') {
         this.aceEditor.getSession().setMode(`ace/mode/${ this.program.language }`);
       }
@@ -121,10 +125,12 @@ export class EditorComponent implements OnInit, AfterViewInit {
     if (!this.program) {
       this.saveAs();
     } else {
-      data.title = this.program.title;
-      data.description = this.program.description;
-      data.language = this.selectedLanguage;
-      data.program = this.removeQuote();
+      data = {
+        title: this.program.title,
+        description: this.program.description,
+        language: this.selectedLanguage,
+        program: this.removeQuote()
+      };
       this.codeService.putProgramNoVisibility(data);
     }
   }
@@ -139,11 +145,23 @@ export class EditorComponent implements OnInit, AfterViewInit {
       data = this.program;
       data.language = this.selectedLanguage;
       data.program = this.removeQuote();
+      data.visibility = '';
     } else {
       data = {
         language: this.selectedLanguage,
         program: this.removeQuote()
       };
+    }
+    if (this.visibility) {
+      data.visibility = this.visibility;
+    } else {
+      if (this.program.private) {
+        data.visibility = 'private';
+      } else if (this.program.unlisted) {
+        data.visibility = 'unlisted';
+      } else {
+        data.visibility = 'public';
+      }
     }
     const dialogRef = this.dialog.open(SaveDialogComponent, {
       width: '500px',
@@ -152,6 +170,42 @@ export class EditorComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
 
     });
+  }
+
+  async privateCode() {
+    try {
+      this.loading = true;
+      await this.codeService.privateCode(this.title);
+      this.visibility = 'private';
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async unListCode() {
+    try {
+      this.loading = true;
+      await this.codeService.unListCode(this.title);
+      this.visibility = 'unlisted';
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async listCode() {
+    try {
+      this.loading = true;
+      await this.codeService.listCode(this.title);
+      this.visibility = 'public';
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.loading = false;
+    }
   }
 
   setBoard(code: string) {

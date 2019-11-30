@@ -5,11 +5,11 @@
   <p class="mb-0 not-logged-in" *ngIf="!loggedIn">Currently not logged in</p>
   <button mat-button class="ml-auto mr-xs" (click)="login()" *ngIf="!loggedIn">Login</button>
   <mat-menu #privacyMenu="matMenu">
-    <button mat-menu-item><span class="text-black">Make Public</span></button>
-    <button mat-menu-item><span class="text-black">Make Unlisted</span></button>
-    <button mat-menu-item><span class="text-black">Make Private</span></button>
+    <button mat-menu-item (click)="listCode()"><span class="text-black">Make Public</span></button>
+    <button mat-menu-item (click)="unListCode()"><span class="text-black">Make Unlisted</span></button>
+    <button mat-menu-item (click)="privateCode()"><span class="text-black">Make Private</span></button>
   </mat-menu>
-  <div fxLayoutAlign="center center" *ngIf="owner">
+  <div fxLayoutAlign="center center" *ngIf="owner || !this.title">
     <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedLanguage" *ngFor="let lang of languages">
       <mat-radio-button (click)="setAce(lang)" class="capitalize selector mr-xs" value="{{ lang }}">{{ lang }}</mat-radio-button>
     </mat-radio-group>

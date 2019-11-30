@@ -33,7 +33,7 @@ export class SaveDialogComponent implements OnInit {
     this.saveForm = new FormGroup({
       title: new FormControl(title, [Validators.required]),
       description: new FormControl(description, [Validators.required]),
-      visibility: new FormControl('public')
+      visibility: new FormControl(this.saveData.visibility)
     });
   }
 

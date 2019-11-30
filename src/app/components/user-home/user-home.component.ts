@@ -43,8 +43,12 @@ export class UserHomeComponent implements OnInit {
     }
   }
 
-  loadProgram(username: string, title: string) {
-    this.codeService.setProgram(username, title);
+  editor() {
+    this.router.navigate(['editor']);
+  }
+
+  loadProgram(title: string) {
+    const username = this.username;
     this.router.navigate(['editor'], { queryParams: { username, title } });
   }
 
