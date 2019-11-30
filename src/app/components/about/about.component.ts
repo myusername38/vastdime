@@ -14,7 +14,7 @@ export class AboutComponent implements OnInit {
   }
 
   home() {
-    this.router.navigate(['']);
+    this.router.navigate(['editor/user-home']);
   }
 
 }

@@ -3,21 +3,21 @@
     <h2 class="subtitle-text mlr-auto">Load Existing Program</h2>
   </div>
   <div class="table-container w-100">
-    <mat-table fxFlexAlign="column" [dataSource]="publicCode">
+    <mat-table fxFlexAlign="column" [dataSource]="publicCode" matSortActive="date" matSortDirection="asc">
       <ng-container cdkColumnDef="title">
-        <mat-header-cell fxFlex="30" *cdkHeaderCellDef>Program</mat-header-cell>
+        <mat-header-cell fxFlex="30" *cdkHeaderCellDef mat-sort-header="title">Program</mat-header-cell>
         <mat-cell fxFlex="30" *cdkCellDef="let row">{{ row?.title }}</mat-cell>
       </ng-container>
       <ng-container class="description" cdkColumnDef="description">
-        <mat-header-cell fxFlex="30" *cdkHeaderCellDef>Description</mat-header-cell>
+        <mat-header-cell fxFlex="30" *cdkHeaderCellDef mat-sort-header="descrip">Description</mat-header-cell>
         <mat-cell class="ellipsis" fxFlex="30" *cdkCellDef="let row">{{ row?.description }}</mat-cell>
       </ng-container>
       <ng-container cdkColumnDef="username">
-        <mat-header-cell fxFlex="20" *cdkHeaderCellDef>Author</mat-header-cell>
+        <mat-header-cell fxFlex="20" *cdkHeaderCellDef mat-sort-header="author">Author</mat-header-cell>
         <mat-cell class="ellipsis" fxFlex="20" *cdkCellDef="let row">{{ row?.username }}</mat-cell>
       </ng-container>
       <ng-container cdkColumnDef="date">
-        <mat-header-cell fxFlex="12" *cdkHeaderCellDef>Edited</mat-header-cell>
+        <mat-header-cell fxFlex="12" *cdkHeaderCellDef mat-sort-header="date">Edited</mat-header-cell>
         <mat-cell class="ellipsis" fxFlex="12" *cdkCellDef="let row">{{ row?.lastEdited | date: 'shortDate' }}</mat-cell>
       </ng-container>
       <ng-container class="end" cdkColumnDef="view" stickyEnd>
