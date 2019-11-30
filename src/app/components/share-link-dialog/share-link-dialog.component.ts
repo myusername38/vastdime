@@ -35,7 +35,9 @@ export class ShareLinkDialogComponent implements OnInit {
     this.link = `www.vastdime.com/editor?username=${ this.data.username }&title=${ this.data.title }`;
   }
 
-  copyLink() {
-
+  copyLink(link) {
+      link.select();
+      document.execCommand('copy');
+      link.setSelectionRange(0, 0);
   }
 }

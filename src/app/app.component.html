@@ -2,6 +2,7 @@
   <h1>VastDime</h1>
   <button class="menu-icon" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon class="icon">menu</mat-icon></button>
   <mat-menu #menu="matMenu" xPosition="before">
+    <button (click)="nav('about')" mat-menu-item>About</button>
     <button (click)="nav('editor')" mat-menu-item *ngIf="loggedIn">Editor</button>
     <button (click)="nav('editor/user-home')" mat-menu-item *ngIf="loggedIn">Your Pograms</button>
     <button (click)="nav('editor/programs')" mat-menu-item *ngIf="loggedIn">Public Programs</button>
