@@ -1,4 +1,4 @@
-
+@import '../../../vars.scss';
 
 :host ::ng-deep .ace_print-margin {
   visibility: hidden !important;
@@ -11,6 +11,28 @@
   position:relative;
 }
 
+.not-logged-in {
+  margin-top: 12px;
+  margin-left: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.selector {
+  color: white;
+  font-size: 14px;
+}
+
+.text-black {
+  color: black;
+}
+
+.button-row {
+  background-color: #2f3129;
+  font-family: $questerial;
+  border-bottom: 1px solid black;
+}
+
 #javascript-editor {
   position: absolute;
   top: 0;
@@ -19,3 +41,9 @@
   left: 0;
 }
 
+button {
+  color: white;
+}
+.language-input {
+  background-color: white;
+}

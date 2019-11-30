@@ -3,15 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { EditorComponent } from '../components/editor/editor.component';
 import { LoadPageComponent } from '../components/load-page/load-page.component';
 import { UserHomeComponent } from '../components/user-home/user-home.component';
+import { redirectUnauthorizedTo, canActivate } from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLanding = redirectUnauthorizedTo(['']);
 
 const routes: Routes = [
-  { path: 'editor', component: EditorComponent },
-  { path: 'programs', component: LoadPageComponent },
-  { path: 'userhome', component: UserHomeComponent }
+  { path: '', component: EditorComponent },
+  { path: 'programs', component: LoadPageComponent, ...canActivate(redirectUnauthorizedToLanding) },
+  { path: 'user-home', component: UserHomeComponent, ...canActivate(redirectUnauthorizedToLanding) }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class CodeEditorRoutingModule { }

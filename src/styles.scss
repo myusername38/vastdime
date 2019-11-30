@@ -101,6 +101,17 @@ $VastDime-theme: mat-light-theme($VastDime-primary, $VastDime-accent, $VastDime-
   text-align: center;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
+.ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
 .fade-in-fast {
   -webkit-animation: fadein .2s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein .2s; /* Firefox < 16 */
