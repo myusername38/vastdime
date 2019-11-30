@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
@@ -19,6 +19,7 @@ export class LoadPageComponent implements OnInit {
   publicCode: CodeMetaData[] = [];
   language = 'javascript';
   displayedColumns: string[] = ['title', 'description', 'username', 'date', 'view'];
+
   constructor(
     private router: Router,
     private codeService: CodeService,
