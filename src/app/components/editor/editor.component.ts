@@ -154,7 +154,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
     }
     if (this.visibility) {
       data.visibility = this.visibility;
-    } else {
+    } else if (this.program) {
       if (this.program.private) {
         data.visibility = 'private';
       } else if (this.program.unlisted) {

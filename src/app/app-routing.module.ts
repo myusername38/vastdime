@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, data: { animation: 'isLeft' } },
   { path: 'about', component: AboutComponent, data: { animation: 'isRight' } },
   { path: 'editor', loadChildren: () => import ('./code-editor/code-editor.module').then(mod => mod.CodeEditorModule) },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

@@ -2,48 +2,63 @@
   <div class="title mt-lg">
     <h2 class="subtitle-text mlr-auto"><span class="capitalize">{{ username }}</span>'s Code</h2>
   </div>
+  <form class="code-input" [formGroup]="autoComplete" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="center start">
+    <mat-form-field class="example-full-width">
+      <input type="text" formControlName="title" class="white" placeholder="Load code" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="lastSet(option)">
+          {{ removeUnderline(option) }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="ml-sm mb-xs">
+      <div class="login-button" type="submit" fxLayout="row">
+        <h1 class="mt-xs mb-xs load-program">Load Program</h1>
+      </div>
+    </button>
+  </form>
   <div class="table-container w-100">
-      <mat-table fxFlexAlign="column" [dataSource]="userCode" *ngIf="this.userCode[0]">
-        <ng-container matColumnDef="title">
-          <mat-header-cell fxFlex="30" *matHeaderCellDef>Program</mat-header-cell>
-          <mat-cell fxFlex="30" *matCellDef="let element">{{ element?.title }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="description">
-          <mat-header-cell fxFlex="30" *matHeaderCellDef>Description</mat-header-cell>
-          <mat-cell fxFlex="30" *matCellDef="let element">{{ element?.description }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="language">
-          <mat-header-cell fxFlex="15" *matHeaderCellDef>Language</mat-header-cell>
-          <mat-cell fxFlex="15" class="capitalize" *matCellDef="let element">{{ element?.language }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="date">
-          <mat-header-cell fxFlex="10" *matHeaderCellDef>Edited</mat-header-cell>
-          <mat-cell fxFlex="10" *matCellDef="let element">{{ element?.lastEdited | date: 'shortDate' }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="visibility">
-          <mat-header-cell fxFlex="8" *matHeaderCellDef>Visibility</mat-header-cell>
-          <mat-cell fxFlex="8" *matCellDef="let element">{{ getSecurity(element.private, element.unlisted) }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="view">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="View Program">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item (click)="loadProgram(element.title)">Load Code</button>
-              <button mat-menu-item (click)="listCode(element.title)" *ngIf="element.private || element.unlisted">Publish Code</button>
-              <button mat-menu-item (click)="privateCode(element.title)" *ngIf="!element.private">Private Code</button>
-              <button mat-menu-item (click)="unListCode(element.title)" *ngIf="!element.unlisted || element.private">Unlist Code</button>
-              <button mat-menu-item (click)="deleteCode(element.title, element.language)">Delete Code</button>
-            </mat-menu>
-          </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
+    <mat-table fxFlexAlign="column" [dataSource]="userCode" *ngIf="this.userCode[0]">
+      <ng-container matColumnDef="title">
+        <mat-header-cell fxFlex="30" *matHeaderCellDef>Program</mat-header-cell>
+        <mat-cell fxFlex="30" *matCellDef="let element">{{ removeUnderline(element?.title) }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <mat-header-cell fxFlex="30" *matHeaderCellDef>Description</mat-header-cell>
+        <mat-cell fxFlex="30" *matCellDef="let element">{{ element?.description }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="language">
+        <mat-header-cell fxFlex="15" *matHeaderCellDef>Language</mat-header-cell>
+        <mat-cell fxFlex="15" class="capitalize" *matCellDef="let element">{{ element?.language }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="date">
+        <mat-header-cell fxFlex="10" *matHeaderCellDef>Edited</mat-header-cell>
+        <mat-cell fxFlex="10" *matCellDef="let element">{{ element?.lastEdited | date: 'shortDate' }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="visibility">
+        <mat-header-cell fxFlex="8" *matHeaderCellDef>Visibility</mat-header-cell>
+        <mat-cell fxFlex="8" *matCellDef="let element">{{ getSecurity(element.private, element.unlisted) }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="view">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="View Program">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="loadProgram(element.title)">Load Code</button>
+            <button mat-menu-item (click)="listCode(element.title)" *ngIf="element.private || element.unlisted">Publish Code</button>
+            <button mat-menu-item (click)="privateCode(element.title)" *ngIf="!element.private">Private Code</button>
+            <button mat-menu-item (click)="unListCode(element.title)" *ngIf="!element.unlisted || element.private">Unlist Code</button>
+            <button mat-menu-item (click)="deleteCode(element.title, element.language)">Delete Code</button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
   </div>
-  <div class="no code" *ngIf="!this.userCode[0]" fxLayout="column" fxLayoutAlign="ceneter center">
+  <div class="no code" *ngIf="noCode" fxLayout="column" fxLayoutAlign="ceneter center">
     <h2 class="subtitle-text mlr-auto">You don't have any code yet!</h2>
     <button mat-raised-button class="mlr-auto" (click)="editor()">Go to editor!</button>
   </div>

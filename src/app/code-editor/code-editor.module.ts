@@ -26,7 +26,6 @@ import { UserHomeComponent } from '../components/user-home/user-home.component';
 import { SaveDialogComponent } from '../components/save-dialog/save-dialog.component';
 import { ShareLinkDialogComponent } from '../components/share-link-dialog/share-link-dialog.component';
 
-
 @NgModule({
   declarations: [
     EditorComponent,

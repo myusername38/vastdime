@@ -1,7 +1,7 @@
 @import '../../../vars.scss';
 
 .main {
-  height: 100vh;
+  height: calc(100vh - 56px);
   width: 100vw;
   background-image: url('../../../assets/pictures/startup-594091_1920.jpg');
 	background-size: cover;
@@ -21,6 +21,11 @@ h1, h2 {
   font-family: $questerial;
 }
 
+.placeholder {
+  width: 20px;
+  height: 20px;
+}
+
 .title-text {
   font-size: 64px;
   text-align: center;
@@ -29,6 +34,14 @@ h1, h2 {
 .subtitle-text {
   font-size: 48px;
   text-align: center;
+}
+
+.white {
+  caret-color: white !important;
+}
+
+label {
+  color: white;
 }
 
 .bottom {
@@ -46,9 +59,9 @@ table {
   width: 100%;
 }
 
-.example-form {
+.code-input {
   min-width: 150px;
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
 }
 
@@ -60,18 +73,49 @@ table {
   color: white;
 }
 
+.load-program {
+  font-size: 20px;
+}
+
+.login-button {
+  width: 180px;
+}
+
 :host ::ng-deep .mat-form-field-flex{
   border: 2px solid white;
   border-radius: 4px !important;
   color: white;
-
+  padding-left: 6px;
+  padding-top: 4px;
 }
 
-:host ::ng-deep .placeholder{
-  border: 2px solid white;
-  border-radius: 4px !important;
-  color: white;
 
+:host ::ng-deep .ng-tns-c6-1 .ng-star-inserted {
+  color: white;
+}
+
+:host ::ng-deep .ng-tns-c6-10 .ng-star-inserted {
+  color: white;
+}
+
+:host ::ng-deep .ng-tns-c6-18 .ng-star-inserted {
+  color: white;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+  color: white !important;
+}
+
+:host ::ng-deep span {
+  color: white;
+}
+
+:host ::ng-deep .mat-form-field-label {
+  color: white;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+  visibility: hidden;
 }
 
 .table-container{

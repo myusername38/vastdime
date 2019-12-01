@@ -10,7 +10,7 @@ export class SnackbarService {
   ) {}
 
   showError(description: string, action: string = 'Close'): MatSnackBarRef<SimpleSnackBar> {
-    return this.snackBar.open(description, action, { panelClass: 'snackbar-error' });
+    return this.snackBar.open(description, action, { panelClass: 'snackbar-error',  duration: 2000 });
   }
 
   showInfo(description: string, noDuration = false): void {

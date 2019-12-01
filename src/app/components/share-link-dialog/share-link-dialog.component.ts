@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CodeService } from '../../services/code.service';
 import { environment } from '../../../environments/environment';
 import { formatDate } from '@angular/common';
+import { SnackbarService } from '../../services/snackbar.service';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ShareLinkDialogComponent implements OnInit {
 
   constructor(
   public dialogRef: MatDialogRef<ShareLinkDialogComponent>,
-  private codeService: CodeService,
+  private snackbarService: SnackbarService,
   @Inject(MAT_DIALOG_DATA) public data) {
     this.saveData = data;
   }
@@ -39,5 +39,10 @@ export class ShareLinkDialogComponent implements OnInit {
       link.select();
       document.execCommand('copy');
       link.setSelectionRange(0, 0);
+      this.snackbarService.showInfo('Link added to clipboard');
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

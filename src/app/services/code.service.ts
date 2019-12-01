@@ -60,7 +60,7 @@ export class CodeService {
   }
 
   getPublicCode(language: string): Promise<CodeMetaData[]> {
-    const params = new HttpParams().set('language', language);
+    const params = new HttpParams().set('lang', language);
     return this.http.get<CodeMetaData[]>(`${ this.url }/getpubliccode`, { params }).toPromise();
   }
 
