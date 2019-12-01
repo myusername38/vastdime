@@ -10,7 +10,8 @@ const redirectUnauthorizedToLanding = redirectUnauthorizedTo(['']);
 const routes: Routes = [
   { path: '', component: EditorComponent },
   { path: 'programs', component: LoadPageComponent, ...canActivate(redirectUnauthorizedToLanding) },
-  { path: 'user-home', component: UserHomeComponent, ...canActivate(redirectUnauthorizedToLanding) }
+  { path: 'user-home', component: UserHomeComponent, ...canActivate(redirectUnauthorizedToLanding) },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

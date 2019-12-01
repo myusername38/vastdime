@@ -1,7 +1,7 @@
 @import '../../../vars.scss';
 
 .main {
-  height: 100vh;
+  height: calc(100vh - 56px);
   width: 100vw;
   background-image: url('../../../assets/pictures/startup-594091_1920.jpg');
 	background-size: cover;
@@ -18,6 +18,20 @@
 
 .table {
   display: flex;
+}
+
+.selector-row {
+  max-width: 1000px;
+  color: white;
+}
+
+.placeholder {
+  width: 30px;
+  height: 30px;
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: white !important;
 }
 
 .table {

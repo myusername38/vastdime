@@ -19,6 +19,13 @@ export class LoadPageComponent implements OnInit {
   publicCode: CodeMetaData[] = [];
   language = 'javascript';
   displayedColumns: string[] = ['title', 'description', 'username', 'date', 'view'];
+  selectedLanguage = 'javascript';
+  languages = [
+    'javascript',
+    'java',
+    'python'
+  ];
+  loading = false;
 
   constructor(
     private router: Router,
@@ -26,7 +33,7 @@ export class LoadPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadPublicCode();
+    this.loadPublicCode(this.selectedLanguage);
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -38,14 +45,20 @@ export class LoadPageComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  async loadPublicCode() {
+  async loadPublicCode(language: string) {
+    if (this.loading) {
+      return;
+    }
     try {
-      this.publicCode = await this.codeService.getPublicCode('javascript');
+      this.loading = true;
+      this.publicCode = await this.codeService.getPublicCode(language);
+       // @ts-ignore
+      this.publicCode = this.publicCode.sort((a, b) => new Date(b.lastEdited) - new Date(a.lastEdited));
       console.log(this.publicCode);
     } catch (err) {
       console.log(err);
     } finally {
-
+       this.loading = false;
     }
   }
 

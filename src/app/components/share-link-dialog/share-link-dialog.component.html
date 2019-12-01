@@ -1,5 +1,8 @@
+<div class="w-100 mb-sm" fxLayoutAlign="end center">
+  <button (click)="close()" class="exit-icon" mat-icon-button><mat-icon>clear</mat-icon></button>
+</div>
 <div class="outter" fxLayout="column" fxLayoutAlign="center center">
-  <h1>Shareable Link</h1>
-  <input style="width: 50%" class="mb-sm" value="{{ this.link }}" #tocopy readonly>
-  <button mat-input (click)="copyLink(tocopy)" mat-raised-button color="primary">Copy to Clipboard</button>
+  <h1 class="mb-sm mt-sm">Shareable Link</h1>
+  <input class="mb-sm link" value="{{ this.link }}" #tocopy readonly>
+  <button mat-input class="p-xs" (click)="copyLink(tocopy)" mat-raised-button color="primary">Copy to Clipboard</button>
 </div>

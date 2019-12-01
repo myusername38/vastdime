@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CodeService } from '../../services/code.service';
 import { UserCodeData } from '../../interfaces/userCodeData';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { startWith, map } from 'rxjs/operators';
 
 
 @Component({
@@ -15,12 +16,16 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class UserHomeComponent implements OnInit {
 
   myControl = new FormControl();
+  autoComplete: FormGroup;
   filteredOptions: Observable<string[]>;
   userCode: UserCodeData[] = [];
   language = 'javascript';
   displayedColumns: string[] = ['title', 'description', 'language', 'date', 'visibility', 'view'];
   loading = false;
   username = '';
+  noCode = false;
+  options: string[] = [];
+  codeToLoad = '';
 
   constructor(
     private router: Router,
@@ -31,11 +36,45 @@ export class UserHomeComponent implements OnInit {
   ngOnInit() {
     this.loadUserCode();
     this.username = this.afAuth.auth.currentUser.displayName;
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    this.autoComplete = new FormGroup({
+      title: new FormControl(''),
+    });
   }
+
+  onSubmit() {
+    this.loadProgram(this.codeToLoad);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  removeUnderline(name: string) {
+    return name.replace(/_/g, ' ');
+  }
+
+  lastSet(name: string) {
+    this.codeToLoad = name;
+    return name.replace(/_/g, ' ');
+  }
+
   async loadUserCode() {
     try {
       this.loading = true;
       this.userCode = await this.codeService.getUserCode();
+       // @ts-ignore
+      this.userCode = this.userCode.sort((a, b) => new Date(b.lastEdited) - new Date(a.lastEdited));
+      this.options = this.userCode.map(p => p.title);
+      if (!this.userCode[0]) {
+        this.noCode = true;
+      }
     } catch (err) {
       console.log(err);
     } finally {

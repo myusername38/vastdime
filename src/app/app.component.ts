@@ -62,6 +62,13 @@ export class AppComponent {
   }
 
   nav(url) {
+    if (url === 'editor') {
+      const name = this.router.url.toString();
+      if (!name.includes('editor/programs') && !name.includes('editor/user-home')) {
+        this.router.navigate(['editor']);
+        setTimeout(() => location.reload(), 200);
+      }
+    }
     this.router.navigate([url]);
   }
 }
