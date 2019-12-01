@@ -24,4 +24,14 @@ export class HomeComponent implements OnInit {
   about() {
     this.router.navigate(['about']);
   }
+
+  home() {
+    let elmnt = document.getElementById('top');
+    elmnt.scrollIntoView(true);
+  }
+
+  scroll() {
+    let elmnt = document.getElementById('bottom');
+    elmnt.scrollIntoView(true);
+  }
 }
