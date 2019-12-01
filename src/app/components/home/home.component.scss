@@ -16,6 +16,10 @@
   caret-color: white;
 }
 
+p {
+  font-family: $questerial;
+}
+
 .learn {
   margin-top: -20px;
   font-size: 28px !important;
@@ -29,6 +33,14 @@ h1, h2 {
 .title-text {
   font-size: 64px;
   text-align: center;
+}
+
+.title-text2 {
+  font-size: 40px;
+  text-align: center;
+  color: black;
+  font-style: normal;
+  font-family: $questerial !important;
 }
 
 .subtitle-text {
@@ -56,13 +68,12 @@ h1, h2 {
 
 .secondary {
   background-color: beige;
-  height: 660px;
 }
 
 a {
   color: black;
   font-family: $questerial;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .button2 {
