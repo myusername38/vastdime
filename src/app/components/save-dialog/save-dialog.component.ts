@@ -2,7 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CodeService } from '../../services/code.service';
+import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-save-dialog',
@@ -13,10 +16,13 @@ export class SaveDialogComponent implements OnInit {
   saveData = null;
   loading = false;
   saveForm: FormGroup;
+  visibility = 'public';
 
   constructor(
   public dialogRef: MatDialogRef<SaveDialogComponent>,
   private codeService: CodeService,
+  private router: Router,
+  private afAuth: AngularFireAuth,
   @Inject(MAT_DIALOG_DATA) public data) {
     this.saveData = data;
   }
@@ -30,10 +36,13 @@ export class SaveDialogComponent implements OnInit {
     if (this.saveData.description) {
       description = this.saveData.description;
     }
+    if (this.saveData.visibility) {
+      this.visibility = this.saveData.visibility;
+    }
     this.saveForm = new FormGroup({
       title: new FormControl(title, [Validators.required]),
       description: new FormControl(description, [Validators.required]),
-      visibility: new FormControl(this.saveData.visibility)
+      visibility: new FormControl(this.visibility),
     });
   }
 
@@ -54,7 +63,10 @@ export class SaveDialogComponent implements OnInit {
 
     try {
       this.loading = true;
+      const title = formData.title.replace(/ /g, '_');
       await this.codeService.putProgram(program);
+      this.router.navigate(['editor'], { queryParams: { username: this.afAuth.auth.currentUser.displayName, title } });
+      setTimeout(() => location.reload(), 200);
       this.dialogRef.close();
     } catch (err) {
       console.log(err);
