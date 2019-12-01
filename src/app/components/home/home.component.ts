@@ -35,11 +35,11 @@ export class HomeComponent implements OnInit {
 
   home() {
     let elmnt = document.getElementById('top');
-    elmnt.scrollIntoView(true);
+    elmnt.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   scroll() {
     let elmnt = document.getElementById('bottom');
-    elmnt.scrollIntoView(true);
+    elmnt.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
