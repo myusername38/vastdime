@@ -6,6 +6,7 @@ import { CodeService } from '../../services/code.service';
 import { UserCodeData } from '../../interfaces/userCodeData';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { startWith, map } from 'rxjs/operators';
+import { SnackbarService } from '../../services/snackbar.service';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class UserHomeComponent implements OnInit {
   constructor(
     private router: Router,
     private codeService: CodeService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private snackbarService: SnackbarService,
   ) { }
 
   ngOnInit() {
@@ -47,7 +49,15 @@ export class UserHomeComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loadProgram(this.codeToLoad);
+    /* Note: This is very hacky but I need to study for finals  ¯\_(ツ)_/¯*/
+      // @ts-ignore
+    const userInput = document.getElementById('load-code-input').value;
+    console.log(userInput);
+    if (userInput && this.userCode.find(c => c.title === this.codeToLoad) && userInput === this.removeUnderline(this.codeToLoad) ) {
+      this.loadProgram(this.codeToLoad);
+    } else {
+      this.snackbarService.showError('Document does not exist');
+    }
   }
 
   private _filter(value: string): string[] {
@@ -100,15 +110,12 @@ export class UserHomeComponent implements OnInit {
     return 'Public';
   }
 
-  getMenu() {
-
-  }
-
   async privateCode(title: string) {
     try {
       this.loading = true;
       await this.codeService.privateCode(title);
       this.loadUserCode();
+      this.snackbarService.showInfo('Code privated');
     } catch (err) {
       console.log(err);
     } finally {
@@ -121,6 +128,7 @@ export class UserHomeComponent implements OnInit {
       this.loading = true;
       await this.codeService.unListCode(title);
       this.loadUserCode();
+      this.snackbarService.showInfo('Code unlisted');
     } catch (err) {
       console.log(err);
     } finally {
@@ -133,6 +141,7 @@ export class UserHomeComponent implements OnInit {
       this.loading = true;
       await this.codeService.listCode(title);
       this.loadUserCode();
+      this.snackbarService.showInfo('Code listed');
     } catch (err) {
       console.log(err);
     } finally {

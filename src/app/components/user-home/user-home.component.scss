@@ -118,7 +118,11 @@ table {
   visibility: hidden;
 }
 
+.icon {
+  color: black;
+}
+
 .table-container{
-  max-width: 800px;
+  max-width: 1000px;
   overflow: auto;
 }
