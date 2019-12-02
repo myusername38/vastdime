@@ -1,20 +1,20 @@
-<div class="main p-sm" fxLayout="column" fxLayoutAlign="start center">
-  <div class="mt-sm" fxLayout="row" fxLayoutAlign="center center">
+<div class="main p-sm pb-md fade-in-fast" fxLayout="column" fxLayoutAlign="start center">
+  <div class="mt-md mb-md" fxLayout="row" fxLayoutAlign="center start">
     <div class="placeholder mr-sm"></div>
-    <h2 class="subtitle-text mlr-auto">Load Existing Program</h2>
-    <mat-spinner [diameter]="30" class="ml-sm" *ngIf="loading"></mat-spinner>
+    <h2 class="subtitle-text mlr-auto mt-0 mb-0 questerial">Load Existing Program</h2>
+    <mat-spinner [diameter]="30" class="ml-sm mt-xs" *ngIf="loading"></mat-spinner>
     <div class="placeholder mr-sm" *ngIf="!loading"></div>
   </div>
-  <div class="selector-row w-100 mb-sm pl-sm" fxLayout="row" fxLayoutAlign="start center">
+  <div class="selector-row w-100 mb-sm pl-sm" (click)="displayError()" fxLayout="row" fxLayoutAlign="start center">
     <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedLanguage" *ngFor="let lang of languages">
-      <mat-radio-button (click)="loadPublicCode(lang)" class="capitalize selector mr-xs" value="{{ lang }}">{{ lang }}</mat-radio-button>
+      <mat-radio-button (click)="loadPublicCode(lang)" [ngClass]="{'disabled': delayFunction}" class="capitalize selector mr-xs" value="{{ lang }}">{{ lang }}</mat-radio-button>
     </mat-radio-group>
   </div>
   <div class="table-container w-100">
     <mat-table fxFlexAlign="column" [dataSource]="publicCode" matSortActive="date" matSortDirection="asc">
       <ng-container cdkColumnDef="title">
         <mat-header-cell fxFlex="30" *cdkHeaderCellDef mat-sort-header="title">Program</mat-header-cell>
-        <mat-cell fxFlex="30" *cdkCellDef="let row">{{ row?.title }}</mat-cell>
+        <mat-cell fxFlex="30" *cdkCellDef="let row">{{ removeUnderline(row?.title) }}</mat-cell>
       </ng-container>
       <ng-container class="description" cdkColumnDef="description">
         <mat-header-cell fxFlex="30" *cdkHeaderCellDef mat-sort-header="descrip">Description</mat-header-cell>

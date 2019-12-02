@@ -48,8 +48,9 @@ export class LoginComponent implements OnInit {
       if (!this.afAuth.auth.currentUser.emailVerified) {
         this.afAuth.auth.signOut();
         this.snackbarService.showError('Accounnt not verified. Please check your email.');
+      } else {
+        this.router.navigate(['editor/user-home']);
       }
-      this.router.navigate(['editor/user-home']);
     } catch (err) {
       if (err.code === 'auth/user-not-found') {
         this.snackbarService.showError('User not found');

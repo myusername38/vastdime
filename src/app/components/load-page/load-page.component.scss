@@ -34,6 +34,11 @@
   stroke: white !important;
 }
 
+.disabled {
+  cursor: not-allowed; /* aesthetics */
+  pointer-events: none;
+}
+
 .table {
   width: 600px;
 }

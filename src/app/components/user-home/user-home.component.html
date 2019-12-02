@@ -1,10 +1,13 @@
-<div class="main p-sm" fxLayout="column" fxLayoutAlign="start center">
-  <div class="title mt-lg">
-    <h2 class="subtitle-text mlr-auto"><span class="capitalize">{{ username }}</span>'s Code</h2>
+<div class="main p-sm pb-md fade-in-fast" fxLayout="column" fxLayoutAlign="start center">
+  <div class="title mt-sm" fxLayout="row" fxLayoutAlign="center start">
+    <div class="placeholder mr-sm"></div>
+    <h2 class="subtitle-text mlr-auto mt-0 questerial"><span class="capitalize">{{ username }}</span>'s Code</h2>
+    <mat-spinner [diameter]="30" class="ml-sm mt-xs" *ngIf="loading"></mat-spinner>
+    <div class="placeholder mr-sm" *ngIf="!loading"></div>
   </div>
-  <form class="code-input" [formGroup]="autoComplete" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="center start">
+  <form class="code-input" *ngIf="userCode[0]" [formGroup]="autoComplete" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="center start">
     <mat-form-field class="example-full-width">
-      <input type="text" formControlName="title" class="white" placeholder="Load code" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <input id="load-code-input" type="text" formControlName="title" class="white" placeholder="Load code" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="lastSet(option)">
           {{ removeUnderline(option) }}
@@ -13,11 +16,11 @@
     </mat-form-field>
     <button mat-raised-button color="primary" class="ml-sm mb-xs">
       <div class="login-button" type="submit" fxLayout="row">
-        <h1 class="mt-xs mb-xs load-program">Load Program</h1>
+        <h1 class="mt-xs mb-xs load-program questerial">Load Program</h1>
       </div>
     </button>
   </form>
-  <div class="table-container w-100">
+  <div class="table-container w-100" *ngIf="userCode[0]">
     <mat-table fxFlexAlign="column" [dataSource]="userCode" *ngIf="this.userCode[0]">
       <ng-container matColumnDef="title">
         <mat-header-cell fxFlex="30" *matHeaderCellDef>Program</mat-header-cell>
@@ -43,7 +46,7 @@
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="View Program">
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon class="icon">more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before">
             <button mat-menu-item (click)="loadProgram(element.title)">Load Code</button>
@@ -60,6 +63,6 @@
   </div>
   <div class="no code" *ngIf="noCode" fxLayout="column" fxLayoutAlign="ceneter center">
     <h2 class="subtitle-text mlr-auto">You don't have any code yet!</h2>
-    <button mat-raised-button class="mlr-auto" (click)="editor()">Go to editor!</button>
+    <button mat-raised-button class="mlr-auto p-sm pt-xs pb-xs" color="primary" (click)="editor()"><span class="button-text">Go to editor!</span></button>
   </div>
 </div>

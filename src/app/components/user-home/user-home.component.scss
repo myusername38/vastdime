@@ -21,6 +21,12 @@ h1, h2 {
   font-family: $questerial;
 }
 
+.button-text {
+  font-size: 24px;
+  color: white !important;
+  font-family: $questerial;
+}
+
 .placeholder {
   width: 20px;
   height: 20px;
@@ -70,7 +76,12 @@ table {
 }
 
 .placeholder {
-  color: white;
+  width: 30px;
+  height: 30px;
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: white !important;
 }
 
 .load-program {
@@ -118,7 +129,11 @@ table {
   visibility: hidden;
 }
 
+.icon {
+  color: black;
+}
+
 .table-container{
-  max-width: 800px;
+  max-width: 1000px;
   overflow: auto;
 }

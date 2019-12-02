@@ -1,16 +1,12 @@
 import { Component } from '@angular/core';
-import { slider, transformer, fader, stepper } from './route-animations';
 import { SnackbarService } from './services/snackbar.service';
-import { RouterOutlet, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [ // <-- add your animations here
-    slider,
-  ]
 })
 export class AppComponent {
   header = false;
@@ -32,9 +28,6 @@ export class AppComponent {
     });
   }
   title = 'VastDime';
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
-  }
   setHeader() {
     const name = this.router.url.toString();
     if (name.includes('editor')) {

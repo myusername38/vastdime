@@ -5,6 +5,7 @@ import { CodeService } from '../../services/code.service';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { SnackbarService } from '../../services/snackbar.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class SaveDialogComponent implements OnInit {
   private codeService: CodeService,
   private router: Router,
   private afAuth: AngularFireAuth,
+  private snackbarService: SnackbarService,
   @Inject(MAT_DIALOG_DATA) public data) {
     this.saveData = data;
   }
@@ -31,7 +33,7 @@ export class SaveDialogComponent implements OnInit {
     let title = '';
     let description = '';
     if (this.saveData.title ) {
-      title = this.saveData.title;
+      title = this.removeUnderline(this.saveData.title);
     }
     if (this.saveData.description) {
       description = this.saveData.description;
@@ -50,6 +52,10 @@ export class SaveDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  removeUnderline(name: string) {
+    return name.replace(/_/g, ' ');
+  }
+
   async onSubmit() {
     const formData = this.saveForm.getRawValue();
     const program = {
@@ -60,6 +66,11 @@ export class SaveDialogComponent implements OnInit {
       private: (formData.visibility === 'private'),
       unlisted: (formData.visibility === 'unlisted')
     };
+    const titleValidation = /^[\w\-\s]+$/;
+    if (!formData.title.toLowerCase().match(titleValidation)) {
+      this.snackbarService.showError('Invalid title. No special characters');
+      return;
+    }
 
     try {
       this.loading = true;
