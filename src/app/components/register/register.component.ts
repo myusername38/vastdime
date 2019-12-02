@@ -82,8 +82,13 @@ export class RegisterComponent implements OnInit {
   async onSubmit() {
     try {
       this.loading = true;
+      const usernameValidation = '^[a-zA-Z0-9_]*$';
+      if (!this.loginForm.getRawValue().username.toLowerCase().match(usernameValidation)) {
+        this.snackbarService.showError('Invalid Username. No special characters');
+        return;
+      }
       await this.codeService.register(this.loginForm.getRawValue().email,
-                                      this.loginForm.getRawValue().username,
+                                      this.loginForm.getRawValue().username.toLowerCase(),
                                       this.loginForm.getRawValue().password);
       this.registered = true;
       this.sendEmail(this.loginForm.getRawValue().email, this.loginForm.getRawValue().password);

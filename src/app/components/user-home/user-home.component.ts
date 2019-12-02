@@ -23,7 +23,7 @@ export class UserHomeComponent implements OnInit {
   language = 'javascript';
   displayedColumns: string[] = ['title', 'description', 'language', 'date', 'visibility', 'view'];
   loading = false;
-  username = '';
+  username = 'User';
   noCode = false;
   options: string[] = [];
   codeToLoad = '';
@@ -36,23 +36,25 @@ export class UserHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadUserCode();
-    this.username = this.afAuth.auth.currentUser.displayName;
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+    this.loading = true;
     this.autoComplete = new FormGroup({
       title: new FormControl(''),
     });
+    this.filteredOptions = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+    setTimeout(() => {
+      this.loadUserCode();
+      this.username = this.afAuth.auth.currentUser.displayName;
+    }, 500);
   }
 
   onSubmit() {
     /* Note: This is very hacky but I need to study for finals  ¯\_(ツ)_/¯*/
       // @ts-ignore
     const userInput = document.getElementById('load-code-input').value;
-    console.log(userInput);
     if (userInput && this.userCode.find(c => c.title === this.codeToLoad) && userInput === this.removeUnderline(this.codeToLoad) ) {
       this.loadProgram(this.codeToLoad);
     } else {

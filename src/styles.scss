@@ -105,11 +105,15 @@ $VastDime-theme: mat-light-theme($VastDime-primary, $VastDime-accent, $VastDime-
   text-transform: capitalize;
 }
 
-.ellipsis{
+.ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+}
+
+.questerial {
+  font-family: $questerial;
 }
 
 .fade-in-fast {

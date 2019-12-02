@@ -93,27 +93,35 @@ export class EditorComponent implements OnInit, AfterViewInit {
       }
     } catch (err) {
       console.log(err);
+      if (err.error.error === 'Cannot access privated code') {
+        this.snackbarService.showError('Code is private');
+        if (this.afAuth.auth.currentUser) {
+          this.router.navigate(['editor/user-home']);
+        } else {
+          this.router.navigate(['']);
+        }
+      }
     } finally {
       this.loading = false;
     }
   }
 
-  login() {
-
-  }
-
   share() {
-    const data = {
-      title: this.title,
-      username: this.username,
-    };
-    const dialogRef = this.dialog.open(ShareLinkDialogComponent, {
-      width: '500px',
-      data,
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    if (this.visibility === 'private' || this.program.private) {
+      this.snackbarService.showError('Cannot share privated code');
+    } else {
+      const data = {
+        title: this.title,
+        username: this.username,
+      };
+      const dialogRef = this.dialog.open(ShareLinkDialogComponent, {
+        width: '500px',
+        data,
+      });
+      dialogRef.afterClosed().subscribe(result => {
 
-    });
+      });
+    }
   }
 
   save() {
@@ -170,6 +178,10 @@ export class EditorComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
 
     });
+  }
+
+  login() {
+    this.router.navigate(['']);
   }
 
   async privateCode() {
