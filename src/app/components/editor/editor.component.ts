@@ -107,7 +107,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
   }
 
   share() {
-    if (this.visibility === 'private' || this.program.private) {
+    if (this.visibility === 'private' || (!this.visibility && this.program.private)) {
       this.snackbarService.showError('Cannot share privated code');
     } else {
       const data = {

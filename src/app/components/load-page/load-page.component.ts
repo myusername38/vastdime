@@ -30,6 +30,7 @@ export class LoadPageComponent implements OnInit {
   firstLoad = true;
   delayFunction = false;
   privous = '';
+  first = true;
 
   constructor(
     private router: Router,
@@ -73,15 +74,18 @@ export class LoadPageComponent implements OnInit {
     try {
       this.privous = language;
       this.loading = true;
-      setTimeout(() => { this.delayFunction = true; }, 100);
-      setTimeout(() => { this.delayFunction = false; }, 2000);
+      if (!this.firstLoad) {
+        setTimeout(() => { this.delayFunction = true; }, 100);
+        setTimeout(() => { this.delayFunction = false; }, 1500);
+      } else {
+        this.firstLoad = false;
+      }
       this.publicCode = await this.codeService.getPublicCode(language);
        // @ts-ignore
       this.publicCode = this.publicCode.sort((a, b) => new Date(b.lastEdited) - new Date(a.lastEdited));
     } catch (err) {
       console.log(err);
     } finally {
-      this.firstLoad = false;
       this.loading = false;
     }
   }

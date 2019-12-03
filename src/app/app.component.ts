@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SnackbarService } from './services/snackbar.service';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { WeatherService } from './services/weather-service';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,14 @@ export class AppComponent {
   header = false;
   editor = false;
   loggedIn = false;
+  loading = false;
+  weather = '';
+  title = 'VastDime';
 
   constructor(
     public router: Router,
     private afAuth: AngularFireAuth,
+    private weatherService: WeatherService,
     private snackbarService: SnackbarService) {
     this.router.events.subscribe((event) => {
       this.header = this.setHeader();
@@ -27,7 +32,7 @@ export class AppComponent {
       }
     });
   }
-  title = 'VastDime';
+
   setHeader() {
     const name = this.router.url.toString();
     if (name.includes('editor')) {
@@ -63,5 +68,18 @@ export class AppComponent {
       }
     }
     this.router.navigate([url]);
+  }
+
+  async showWeather() {
+    try {
+      this.loading = true;
+      const forcast = await this.weatherService.getWeather();
+      const hour = forcast.properties.periods[0];
+      this.snackbarService.showInfo(`The weather in Chapel hill is ${ hour.temperature } °F and ${ hour.shortForecast }`);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.loading = false;
+    }
   }
 }

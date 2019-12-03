@@ -26,7 +26,7 @@ export class InterceptorService implements HttpInterceptor {
       }
     }
 
-    if (req.url.includes('signup')) {
+    if (req.url.includes('signup') || req.url.includes('weather')) {
       return next.handle(req);
     }
     req = req.clone({
