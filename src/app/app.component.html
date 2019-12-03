@@ -5,6 +5,7 @@
     <button (click)="nav('editor')" mat-menu-item *ngIf="loggedIn">Editor</button>
     <button (click)="nav('editor/user-home')" mat-menu-item *ngIf="loggedIn">Your Pograms</button>
     <button (click)="nav('editor/programs')" mat-menu-item *ngIf="loggedIn">Public Programs</button>
+    <button (click)="showWeather()" mat-menu-item>Weather in Chapel Hill</button>
     <button (click)="logout()" mat-menu-item *ngIf="loggedIn">Logout</button>
     <button (click)="login()" mat-menu-item *ngIf="!loggedIn">Login</button>
   </mat-menu>
