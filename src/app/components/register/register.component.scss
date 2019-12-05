@@ -10,7 +10,6 @@
   margin: 0px;
   border: 0px;
   overflow-x: hidden;
-  overflow-y: hidden;
   background-color: rgba(20,20,20, .65); // Tint color
   background-blend-mode: multiply;
   caret-color: white;
@@ -18,7 +17,9 @@
 
 .login-box {
   max-width: 600px;
-  margin-top: 15vh;
+  @media screen and (min-width: $screen-medium){
+    margin-top: 15vh;
+  }
 }
 
 .confirm-box {

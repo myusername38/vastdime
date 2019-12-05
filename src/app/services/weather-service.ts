@@ -9,6 +9,6 @@ export class WeatherService {
   constructor(private http: HttpClient) { }
 
   getWeather(): Promise<any> {
-    return this.http.get(`https://api.weather.gov/gridpoints/RAH/57,62/forecast/hourly`).toPromise();
+    return this.http.get(`https://api.weather.gov/gridpoints/RAH/57,62/forecast/`).toPromise();
   }
 }

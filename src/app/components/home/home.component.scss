@@ -51,12 +51,26 @@ h1, h2 {
 .bottom {
   position: absolute;
   bottom: 75px;
+
+  @media screen and (max-width: $screen-medium){
+    bottom: 50px;
+  }
+
+  @media screen and (max-width: $screen-small){
+    bottom: 25px;
+  }
+
 }
 
 .button3 {
   color: white;
   font-family: $questerial;
   font-size: 32px;
+}
+
+.info {
+  width: 100%;
+  max-width: 1200px;
 }
 
 .button {
@@ -66,7 +80,7 @@ h1, h2 {
 }
 
 .description {
-  max-width: 350px;
+  max-width: 300px;
 }
 
 .desc {
